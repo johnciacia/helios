@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.1.44)
 # Database: yii_press
-# Generation Time: 2012-04-10 03:58:57 +0000
+# Generation Time: 2012-04-10 04:23:42 +0000
 # ************************************************************
 
 
@@ -27,10 +27,16 @@ DROP TABLE IF EXISTS `observation`;
 
 CREATE TABLE `observation` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `teacher_id` int(11) DEFAULT NULL,
-  `rubric_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `user_id` int(11) unsigned DEFAULT NULL,
+  `teacher_id` int(11) unsigned DEFAULT NULL,
+  `rubric_id` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`,`teacher_id`,`rubric_id`),
+  KEY `teacher_id` (`teacher_id`),
+  KEY `rubric_id` (`rubric_id`),
+  CONSTRAINT `observation_ibfk_3` FOREIGN KEY (`rubric_id`) REFERENCES `rubric` (`id`),
+  CONSTRAINT `observation_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `observation_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -42,11 +48,15 @@ DROP TABLE IF EXISTS `observation_meta`;
 
 CREATE TABLE `observation_meta` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `observation_id` int(11) DEFAULT NULL,
-  `rubric_meta_id` int(11) DEFAULT NULL,
-  `meta_value` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `observation_id` int(11) unsigned DEFAULT NULL,
+  `rubric_meta_id` int(11) unsigned DEFAULT NULL,
+  `meta_value` text,
+  PRIMARY KEY (`id`),
+  KEY `observation_id` (`observation_id`,`rubric_meta_id`),
+  KEY `rubric_meta_id` (`rubric_meta_id`),
+  CONSTRAINT `observation_meta_ibfk_2` FOREIGN KEY (`rubric_meta_id`) REFERENCES `rubric_meta` (`id`),
+  CONSTRAINT `observation_meta_ibfk_1` FOREIGN KEY (`observation_id`) REFERENCES `observation` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -57,9 +67,11 @@ DROP TABLE IF EXISTS `rubric`;
 
 CREATE TABLE `rubric` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
+  `user_id` int(11) unsigned DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `rubric_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `rubric` WRITE;
@@ -81,11 +93,13 @@ DROP TABLE IF EXISTS `rubric_meta`;
 
 CREATE TABLE `rubric_meta` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `rubric_id` int(11) DEFAULT NULL,
+  `rubric_id` int(11) unsigned DEFAULT NULL,
   `item_label` text,
-  `item_type` int(11) DEFAULT NULL,
-  `position` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `item_type` int(11) unsigned DEFAULT '0',
+  `position` int(11) unsigned DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `rubric_id` (`rubric_id`),
+  CONSTRAINT `rubric_meta_ibfk_1` FOREIGN KEY (`rubric_id`) REFERENCES `rubric` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `rubric_meta` WRITE;
@@ -93,16 +107,7 @@ LOCK TABLES `rubric_meta` WRITE;
 
 INSERT INTO `rubric_meta` (`id`, `rubric_id`, `item_label`, `item_type`, `position`)
 VALUES
-	(1,1,'asdf',1,NULL),
-	(2,NULL,'Hello, World!',3,NULL),
-	(3,NULL,'234',2,NULL),
-	(4,NULL,'wwf',1,NULL),
-	(5,NULL,'asfasd',1,NULL),
-	(6,1,'safs',2,NULL),
-	(7,555,'asdf',2,NULL),
-	(8,1,'asfasdfasd',5,NULL),
-	(9,1,'asdfsd',111,NULL),
-	(10,1,'ret',1,NULL);
+	(1,1,'asdf',1,0);
 
 /*!40000 ALTER TABLE `rubric_meta` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -115,10 +120,12 @@ DROP TABLE IF EXISTS `teacher`;
 
 CREATE TABLE `teacher` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
+  `user_id` int(11) unsigned DEFAULT NULL,
   `first_name` varchar(255) DEFAULT NULL,
   `last_name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `teacher_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `teacher` WRITE;
@@ -140,10 +147,12 @@ DROP TABLE IF EXISTS `user_meta`;
 
 CREATE TABLE `user_meta` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
+  `user_id` int(11) unsigned DEFAULT NULL,
   `meta_key` varchar(11) DEFAULT NULL,
   `meta_value` text,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `user_meta_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
