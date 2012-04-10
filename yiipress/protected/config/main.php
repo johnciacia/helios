@@ -6,44 +6,49 @@
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return array(
-	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'My Web Application',
+	'basePath' => dirname( __FILE__ ) . DIRECTORY_SEPARATOR . '..',
+	'name' => 'Helios',
 
 	// preloading 'log' component
-	'preload'=>array('log'),
+	'preload' => array( 'log' ),
 
 	// autoloading model and component classes
-	'import'=>array(
+	'import' => array(
 		'application.models.*',
 		'application.components.*',
 	),
 
-	'modules'=>array(
-		'gii'=>array(
-			'class'=>'system.gii.GiiModule',
-			'password'=>'spam32',
+	'modules' => array(
+		'gii' => array(
+			'class' => 'system.gii.GiiModule',
+			'password' => 'spam32',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			//'ipFilters'=>array('127.0.0.1','::1'),
 		),
 	),
 
 	// application components
-	'components'=>array(
-		'user'=>array(
+	'components' => array(
+		'user' => array(
 			// enable cookie-based authentication
-			'allowAutoLogin'=>true,
+			'allowAutoLogin' => true,
 		),
 		// uncomment the following to enable URLs in path-format
-		/*
-		'urlManager'=>array(
-			'urlFormat'=>'path',
-			'rules'=>array(
-				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
-				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+
+		'urlManager' => array(
+			'urlFormat' => 'path',
+			'rules' => array(
+				array( 'api/list', 'pattern' => 'api/<model:\w+>', 'verb' => 'GET' ),
+				array( 'api/view', 'pattern' => 'api/<model:\w+>/<id:\d+>', 'verb' => 'GET' ),
+				array( 'api/update', 'pattern' => 'api/<model:\w+>/<id:\d+>', 'verb' => 'PUT' ),
+				array( 'api/delete', 'pattern' => 'api/<model:\w+>/<id:\d+>', 'verb' => 'DELETE' ),
+				array( 'api/create', 'pattern' => 'api/<model:\w+>', 'verb' => 'POST' ),
+				'<controller:\w+>/<id:\d+>' => '<controller>/view',
+				'<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+				'<controller:\w+>/<action:\w+>' => '<controller>/<action>',
 			),
 		),
-		*/
+
 		/*
 		'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
@@ -52,10 +57,10 @@ return array(
 		// uncomment the following to use a MySQL database
 
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=yii_press',
+			'connectionString' => 'mysql:host=localhost;dbname=helios',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => 'root',
+			'password' => 'spam3232',
 			'charset' => 'utf8',
 		),
 

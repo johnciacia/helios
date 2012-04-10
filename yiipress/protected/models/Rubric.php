@@ -5,8 +5,13 @@
  *
  * The followings are the available columns in table 'rubric':
  * @property string $id
- * @property integer $user_id
+ * @property string $user_id
  * @property string $title
+ *
+ * The followings are the available model relations:
+ * @property Observation[] $observations
+ * @property Users $user
+ * @property RubricMeta[] $rubricMetas
  */
 class Rubric extends CActiveRecord
 {
@@ -36,6 +41,7 @@ class Rubric extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('user_id', 'length', 'max'=>11),
 			array('title', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -51,6 +57,9 @@ class Rubric extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'observations' => array(self::HAS_MANY, 'Observation', 'rubric_id'),
+			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
+			'rubricMetas' => array(self::HAS_MANY, 'RubricMeta', 'rubric_id'),
 		);
 	}
 
@@ -83,7 +92,7 @@ class Rubric extends CActiveRecord
 		$criteria->addCondition( 'user_id=' . Yii::app()->user->id );
 
 		return new CActiveDataProvider( $this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		) );
 	}
 

@@ -5,9 +5,13 @@
  *
  * The followings are the available columns in table 'teacher':
  * @property string $id
- * @property integer $user_id
+ * @property string $user_id
  * @property string $first_name
  * @property string $last_name
+ *
+ * The followings are the available model relations:
+ * @property Observation[] $observations
+ * @property Users $user
  */
 class Teacher extends CActiveRecord
 {
@@ -37,10 +41,11 @@ class Teacher extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('user_id', 'length', 'max'=>11),
 			array('first_name, last_name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('first_name, last_name', 'safe', 'on'=>'search'),
+			array('id, user_id, first_name, last_name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -52,6 +57,8 @@ class Teacher extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'observations' => array(self::HAS_MANY, 'Observation', 'teacher_id'),
+			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
 		);
 	}
 
@@ -80,9 +87,10 @@ class Teacher extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('user_id',$this->user_id);
+		$criteria->compare('user_id',$this->user_id,true);
 		$criteria->compare('first_name',$this->first_name,true);
 		$criteria->compare('last_name',$this->last_name,true);
+		$criteria->addCondition( 'user_id=' . Yii::app()->user->id );
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
