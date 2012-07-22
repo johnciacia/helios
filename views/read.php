@@ -11,7 +11,7 @@
 		<?php if( $headings[$column][0] == '' ) continue; ?>
 		<td><?php echo $item; ?></td>
 	<?php endforeach; ?>
-	<td><a href='?p=<?php echo $_GET['p']; ?>&q=edit&id=<?php echo $values['id']; ?>'>Edit</a></td>
+	<td><a href='?p=<?php echo $_GET['p']; ?>&q=update&id=<?php echo $values['id']; ?>'>Edit</a></td>
 	<td><a href='?p=<?php echo $_GET['p']; ?>&q=delete&id=<?php echo $values['id']; ?>'>Delete</a></td>
 	</tr>
 <?php endforeach; ?>
