@@ -33,6 +33,14 @@ class TeacherController extends Controller {
 
 	public function listTeachers() {
 		$this->loadView('header.php');
+		if( isset( $_GET['update']) && $_GET['update'] == 1
+			&& isset($_GET['id'])) {
+			$teacher = $this->model->get_teacher( $_GET['id'] );
+			echo '<div class="alert alert-success">
+				<button type="button" class="close" data-dismiss="alert">×</button>
+				'. $teacher['first_name'] .' ' . $teacher['last_name'] . ' has been updated.
+				</div>';
+		}
 		$teachers = $this->model->get_teachers();
 
 		$args = array( 'teachers' => $teachers );
@@ -41,12 +49,12 @@ class TeacherController extends Controller {
 	}
 
 	public function editTeacher() {
-		$this->loadView('header.php');
 		if( isset($_POST['action']) && $_POST['action'] == 'update-teacher') {
 			$this->model->update_teacher( $_GET['id'], $_POST['first_name'], $_POST['last_name'], $_POST['teach_id']);
-			echo "<p>The teacher has been updated...</p>";
+			header("Location: ?p=teacher&update=1&id=" . $_GET['id']);
 		}
 
+		$this->loadView('header.php');
 		$teacher = $this->model->get_teacher( $_GET['id'] );
 
 		$args = array( 

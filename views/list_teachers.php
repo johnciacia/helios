@@ -1,9 +1,9 @@
-<a href="?p=teacher&q=add">Add New</a>
-<table>
+<table class="table table-striped table-bordered table-condensed">
 	<tr>
 		<th>First Name</th>
 		<th>Last Name</th>
 		<th>Teacher ID</th>
+		<th colspan="2"></th>
 	</tr>
 <?php
 foreach( $teachers as $teacher ) {
@@ -17,3 +17,4 @@ foreach( $teachers as $teacher ) {
 }
 ?>
 </table>
+<a href="?p=teacher&q=add" class="btn">Add New</a>
