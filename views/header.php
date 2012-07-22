@@ -29,6 +29,7 @@
 				<ul class="nav">
 					<li><a href="/">Home</a></li>
 					<li><a href="?p=teacher">Teachers</a></li>
+					<li><a href="?p=standard">Standards</a></li>
 					<li><a href="?p=observation">Observations</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
