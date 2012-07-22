@@ -28,8 +28,8 @@
 			<div class="nav-collapse">
 				<ul class="nav">
 					<li><a href="/">Home</a></li>
-					<li><a href="?p=teacher">Manage Teachers</a></li>
-					<li><a href="?p=observation">Manage Observations</a></li>
+					<li><a href="?p=teacher">Teachers</a></li>
+					<li><a href="?p=observation">Observations</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>

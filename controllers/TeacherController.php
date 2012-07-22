@@ -56,7 +56,6 @@ class TeacherController extends Controller {
 
 		$this->loadView('header.php');
 		$teacher = $this->model->get_teacher( $_GET['id'] );
-
 		$args = array( 
 			'first_name' => $teacher['first_name'],
 			'last_name' => $teacher['last_name'],
@@ -70,6 +69,4 @@ class TeacherController extends Controller {
 		$this->model->delete_teacher( $_GET['id'] );
 		header("Location: ?p=teacher");
 	}
-
-
 }

@@ -13,6 +13,10 @@ switch( $_GET['p'] ) {
 		load('teacher');
 		break;
 
+	case 'standard':
+		load('standard');
+		break;
+
 	case 'observation':
 		load('observation');
 		break;
@@ -30,6 +34,27 @@ function load( $controller ) {
 
 class Controller {
 
+	public function __construct() {
+		if( ! isset( $_REQUEST['q'] ) ) {
+			$this->read();
+			return;
+		}
+
+		switch( $_REQUEST['q'] ) {
+			case 'create':
+				$this->create();
+				break;
+			case 'update':
+				$this->update();
+				break;
+			case 'delete':
+				$this->delete();
+				break;
+			default:
+				$this->read();
+		}
+	}
+
 	public function loadView($view, $args = '') {
 		if( $args != '') extract( $args );
 		require_once( 'views/' . $view );
@@ -43,6 +68,22 @@ class Controller {
 		}
 
 		return count($set) == count($args);
+	}
+
+	public function validate( $items ) {
+
+		$i = array();
+		foreach( $items as $key => $items ) {
+			if( 'id' === $key ) continue;
+			if( false === $items[4] ) continue;
+			if( ! isset( $_POST[$key] ) ) return false;
+			if( strlen( $_POST[$key] ) < $items[2] ) return false;
+			if( strlen( $_POST[$key] ) > $items[3] ) return false;
+
+			$i[$key] = $_POST[$key];
+		}
+
+		return $i;
 	}
 }
 ?>
