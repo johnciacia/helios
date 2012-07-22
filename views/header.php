@@ -2,13 +2,10 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<link href="../css/bootstrap.css" rel="stylesheet">
 	<style>
 		body { padding-top: 60px; }
-		#main { width: 960px; margin: 0 auto;}
-		li.standard, li.element { cursor: pointer; }
-		li.standard ul { display: none; }
 	</style>
-	<link href="../css/bootstrap.css" rel="stylesheet">
 	<!--[if lt IE 9]>
 	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
@@ -30,6 +27,8 @@
 					<li><a href="/">Home</a></li>
 					<li><a href="?p=teacher">Teachers</a></li>
 					<li><a href="?p=standard">Standards</a></li>
+					<li><a href="?p=element">Elements</a></li>
+					<li><a href="?p=indicator">Indicators</a></li>
 					<li><a href="?p=observation">Observations</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
@@ -37,4 +36,4 @@
 	</div>
 </div>
 
-<div id="main">
+<div class="container">

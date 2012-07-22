@@ -21,6 +21,14 @@ switch( $p ) {
 		load('standard');
 		break;
 
+	case 'element':
+		load('element');
+		break;
+
+	case 'indicator':
+		load('indicator');
+		break;
+
 	case 'observation':
 		load('observation');
 		break;
