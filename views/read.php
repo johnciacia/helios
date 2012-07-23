@@ -6,14 +6,14 @@
 		<?php endforeach; ?>
 		<th colspan="2"></th>
 	</tr>
-<?php foreach( $items as $values ) : ?>
+<?php  foreach( $items as $values ) : ?>
 	<tr>
-	<?php foreach( $values as $column => $item ) : ?>
+	<?php foreach( $values->items as $column => $item ) : ?>
 		<?php if( $headings[$column][0] == '' ) continue; ?>
-		<td><?php echo $item; ?></td>
+		<td><?php echo $item['value']; ?></td>
 	<?php endforeach; ?>
-	<td><a href='?p=<?php echo $_GET['p']; ?>&q=update&id=<?php echo $values['id']; ?>'>Edit</a></td>
-	<td><a href='?p=<?php echo $_GET['p']; ?>&q=delete&id=<?php echo $values['id']; ?>'>Delete</a></td>
+	<td><a href='?p=<?php echo $_GET['p']; ?>&q=update&id=<?php echo $values->id; ?>'>Edit</a></td>
+	<td><a href='?p=<?php echo $_GET['p']; ?>&q=delete&id=<?php echo $values->id; ?>'>Delete</a></td>
 	</tr>
 <?php endforeach; ?>
 </table>

@@ -27,15 +27,18 @@ trait CRUDModel {
 		$where = ( $this->global === false ) ? " WHERE `user_id` = " . $_SESSION['user_id'] : '';
 
 		$query = mysql_query( "SELECT $select FROM `{$this->table}`$where") or die(mysql_error());
-		$x = array();
-		while( $y = mysql_fetch_assoc( $query ) ) {
-			$x[] = $y;
+		$ret = array();
+		while( $row = mysql_fetch_assoc( $query ) ) {
+			$obj = new self;
+			foreach( $row as $col => $val ) {
+				$obj->items[$col]['value'] = $val;
+				$obj->$col = $val;
+			}
+
+			$ret[] = $obj;	
 		}
-		return $x;
-	}
 
-	public function __call( $name, $args ) {
-
+		return $ret;
 	}
 
 	public function getItem( $item_id ) {
@@ -43,7 +46,16 @@ trait CRUDModel {
 		if( $item_id == 0 ) return false;
 
 		$query = mysql_query( "SELECT * FROM `{$this->table}` WHERE `id` = '$item_id'") or die(mysql_error());
-		return mysql_fetch_assoc( $query );
+		$res = mysql_fetch_assoc( $query );
+
+		$obj = new self;
+
+		foreach( $res as $key => $value ) {
+			$obj->$key = $value;
+			$obj->items[$key]['value'] = $value;
+		}
+
+		return $obj;
 	}
 
 	public function update( $id, $items ) {
@@ -112,12 +124,9 @@ trait CRUDController {
 			$this->model->update( $_GET['id'], $items );
 			header("Location: ?p={$this->controller}");
 		}
-		$items = $this->model->items;
-		$values = $this->model->getItem( $_GET['id'] );
-		foreach( $values as $key => $value )
-			$items[$key]['value'] = $value;
 
-		$this->loadView( 'update.php', array( 'items' => $items ) );
+		$obj = $this->model->getItem( $_GET['id'] );
+		$this->loadView( 'update.php', array( 'items' => $obj->items ) );
 	}
 
 	public function delete() {
