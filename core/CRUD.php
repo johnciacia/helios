@@ -34,6 +34,10 @@ trait CRUDModel {
 		return $x;
 	}
 
+	public function __call( $name, $args ) {
+
+	}
+
 	public function getItem( $item_id ) {
 		$item_id = (int)$item_id;
 		if( $item_id == 0 ) return false;

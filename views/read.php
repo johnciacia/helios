@@ -4,6 +4,7 @@
 		<?php if( $heading[0] == '' ) continue; ?>
 		<th><?php echo $heading[0]; ?></th>
 		<?php endforeach; ?>
+		<th colspan="2"></th>
 	</tr>
 <?php foreach( $items as $values ) : ?>
 	<tr>

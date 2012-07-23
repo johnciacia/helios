@@ -1,42 +1,40 @@
 <?php
 
 class ObservationModel {
+	use CRUDModel;
+	
+	public $items = array(
+			'id' => array( '', 'hidden' ),
+			'user_id' => array( '', 'hidden' ),
+			'teacher_id' => array( 'Teacher', 'text', 1, 11, true ),
+			'date' => array( 'Date', 'text', 1, 11, true ),
+			'indicators' => array( '', 'hidden')
+		);
 
-	public function add_observation() {
-		
+	public function __construct() {
+		$this->global = false;
+		$this->table = 'observations';
 	}
 
-	public function get_standards() {
-		$query = mysql_query( "SELECT * FROM `standards`" ) or die(mysql_error());
-		$standards = array();
-		while( $standard = mysql_fetch_array( $query ) ) {
-			$standards[] = $standard;
+	public function create( $items ) {
+		if( $this->global === false )
+			$items['user_id'] = $_SESSION['user_id'];
+
+		$cols = array(); $columns = '';
+		$vals = array(); $values = '';
+		foreach( $items as $key => $value ) {
+			$cols[] = '`' . $key . '`';
+			if( 'indicators' == $key ) {
+				$vals[] = "'" . json_encode( $value ) . "'";
+			} else
+				$vals[] = "'" . mysql_real_escape_string( $value ) . "'";
 		}
-		return $standards;
+
+		$columns = implode( ', ', $cols );
+		$values = implode(', ', $vals );
+
+		return mysql_query( "INSERT INTO `{$this->table}` ($columns) VALUES($values)" );
 	}
-
-	public function get_indicators($element_id) {
-		$query = mysql_query( "SELECT * FROM `indicators` WHERE `element_id` = '$element_id'" ) or die(mysql_error());
-		$indicators = array();
-		while( $indicator = mysql_fetch_array( $query ) ) {
-			$indicators[] = $indicator;
-		}
-		return $indicators;
-	}
-
-	public function get_elements( $standard_id ) {
-		$standard_id = (int)$standard_id;
-		if( $standard_id == 0 ) return false;
-
-		$query = mysql_query( "SELECT * FROM `elements` WHERE `standard_id` = '$standard_id'" ) or die(mysql_error());
-		$elements = array();
-		while( $standard = mysql_fetch_array( $query ) ) {
-			$elements[] = $standard;
-		}
-		return $elements;		
-	}
-
-
 }
 
 ?>
