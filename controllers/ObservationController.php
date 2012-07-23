@@ -4,8 +4,7 @@ class ObservationController extends Controller {
 	use CRUDController;
 
 	public function __construct() {
-		require_once('models/Observation.php');
-		$this->model = new Observation();
+		$this->model = new Models\Observation();
 		$this->controller = 'observation';
 
 		parent::__construct();
