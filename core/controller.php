@@ -41,20 +41,19 @@ class Controller {
 
 		$i = array();
 		foreach( $items as $key => $items ) {
-			if( 0 === $items[0] ) continue;
-			if( false === $items[5] ) continue;
-
-			if( 2 === $items[0] ) {
-				if( ! isset( $_POST[$key] ) ) return false;
-				else {
-					$i[$key] = $_POST[$key];
-					continue;
-				}
-			}
+			if( false === $items['display'] ) continue;
+			if( true === $items['optional'] ) continue;
 
 			if( ! isset( $_POST[$key] ) ) return false;
-			if( strlen( $_POST[$key] ) < $items[3] ) return false;
-			if( strlen( $_POST[$key] ) > $items[4] ) return false;
+			if( strlen( $_POST[$key] ) > $items['max'] ) return false;
+			if( strlen( $_POST[$key] ) < $items['min'] ) return false;
+			// if( 2 === $items[0] ) {
+			// 	if( ! isset( $_POST[$key] ) ) return false;
+			// 	else {
+			// 		$i[$key] = $_POST[$key];
+			// 		continue;
+			// 	}
+			// }
 
 			$i[$key] = $_POST[$key];
 		}

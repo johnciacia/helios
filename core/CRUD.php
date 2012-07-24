@@ -112,8 +112,8 @@ trait CRUDController {
 
 	public function read() {
 		$data = array(
-			'items' => $this->model->read(),
-			'headings' => $this->model->items,
+			'values' => $this->model->read(),
+			'items' => $this->model->items,
 		);
 
 		$this->loadView( 'read.php', $data );

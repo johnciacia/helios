@@ -1,10 +1,10 @@
 <form method="post" class="well form-horizontal">
 	<fieldset>
 		<?php foreach( $items as $id => $item ) : ?>
-		<?php if( $item[0] == 0 ) continue; ?>
+		<?php if( false === $item['display'] ) continue; ?>
 		<div class="control-group">
 			<label class="control-label" for="<?php echo $id; ?>">
-				<?php echo $item[1]; ?>
+				<?php echo $item['label']; ?>
 			</label>
 
 			<div class="controls">

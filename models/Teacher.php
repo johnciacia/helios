@@ -6,11 +6,36 @@ class Teacher {
 	use \CRUDModel;
 
 	public $items = array(
-		'id' => array( 0, '', 'hidden' ),
-		'user_id' => array( 0, '', 'hidden' ),
-		'first_name' => array( 1, 'First Name', 'text', 1, 255, true ),
-		'last_name' => array( 1, 'Last Name', 'text', 1, 255, true ),
-		'teach_id' => array( 1, 'Teacher ID', 'text', 1, 255, true ),
+		'id' => array( 
+			'display' => false
+		),
+		'user_id' => array( 
+			'display' => false 
+		),
+		'first_name' => array( 
+			'display' => true,
+			'label' => 'First Name',
+			'type' => 'text',
+			'min' => 1,
+			'max' => 255,
+			'optional' => false
+		),
+		'last_name' => array( 
+			'display' => true,
+			'label' => 'Last Name',
+			'type' => 'text',
+			'min' => 1,
+			'max' => 255,
+			'optional' => false
+		),
+		'teach_id' => array( 
+			'display' => true,
+			'label' => 'Teacher ID',
+			'type' => 'text',
+			'min' => 1,
+			'max' => 255,
+			'optional' => false
+		),
 	);
 
 	public function __construct() {

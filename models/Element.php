@@ -6,12 +6,44 @@ class Element {
 	use \CRUDModel;
 
 	public $items = array(
-		'id' => array( 0, '', 'hidden' ),
-		'standard_id' => array( 2, 'Standard', 'dropdown', 'get_standards', '', true ),
-		'type' => array( 0, '', 'hidden' ),
-		'number' => array( 1, 'Number', 'text', 1, 10, true ),
-		'title' => array( 1, 'Element', 'textarea', 1, 5000, true ),
-		'indicators' => array( 1, 'Indicators', 'textarea', 1, 5000, true )
+		'id' => array( 
+			'display' => false
+		),
+		'type' => array( 
+			'display' => false
+		),
+		'standard_id' => array(
+			'display' => true,
+			'label' => 'Standard',
+			'type' => 'dropdown',
+			'optional' => false,
+			'cb_value' => array( __CLASS__, 'cb_value' ),
+			'cb_display' => array( __CLASS__, 'cb_display' )
+		),
+		'number' => array( 
+			'display' => true,
+			'label' => 'Number',
+			'type' => 'text',
+			'min' => 1,
+			'max' => 10,
+			'optional' => false
+		),
+		'title' => array( 
+			'display' => true,
+			'label' => 'Element',
+			'type' => 'textarea',
+			'min' => 1,
+			'max' => 5000,
+			'optional' => false
+		),
+		'indicators' => array( 
+			'display' => true,
+			'label' => 'Indicators',
+			'type' => 'textarea',
+			'min' => 1,
+			'max' => 5000,
+			'optional' => false
+		)
 	);
 
 	public $relations = array(
@@ -42,6 +74,15 @@ class Element {
 		$class = 'models\\'. $this->relations['standard'][0];
 		$obj = new $class;
 		return $obj->getItem( $id );
+	}
+
+	public static function cb_display( $id ) {
+		return $id;
+	}
+
+	public static function cb_value() {
+		$standard = new Standard();
+		return $standard->read();
 	}
 
 }
