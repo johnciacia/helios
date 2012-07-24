@@ -19,13 +19,13 @@
 			<th>Indicator</th>
 		</tr>
 		<?php foreach( $standards as $standard ) : ?>
-			<?php $elements = $this->element_model->getElementsByStandard( $standard['id'] ); ?>
+			<?php $elements = $this->element_model->getElementsByStandard( $standard->id ); ?>
 				<?php foreach( $elements as $element ) : ?>
 					<?php $indicators = $this->indicator_model->getIndicatorsByElement( $element['id'] ); ?>
 					<?php foreach( $indicators as $indicator ) : ?>
 						<tr>
 							<td><input type="checkbox" name="indicators[]" value="<?php echo $indicator['id']; ?>" /></td>
-							<td><?php echo $standard['title']; ?></td>
+							<td><?php echo $standard->title; ?></td>
 							<td><?php echo $element['title']; ?></td>
 							<td><?php echo $indicator['desc']; ?></td>
 						</tr>

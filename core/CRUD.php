@@ -14,7 +14,7 @@ trait CRUDModel {
 		}
 
 		$columns = implode( ', ', $cols );
-		$values = implode(', ', $vals );
+		$values = implode( ', ', $vals );
 
 		return mysql_query( "INSERT INTO `{$this->table}` ($columns) VALUES($values)" );
 	}

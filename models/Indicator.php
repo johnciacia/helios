@@ -6,10 +6,10 @@ class Indicator {
 	use \CRUDModel;
 
 	public $items = array(
-			'id' => array( '', 'hidden' ),
-			'element_id' => array( 'Element', 'text', 1, 10, true ),
-			'desc' => array( 'Description', 'textarea', 1, 5000, true ),
-		);
+		'id' => array( 0, '', 'hidden' ),
+		'element_id' => array( 1, 'Element', 'text', 1, 10, true ),
+		'desc' => array( 1, 'Description', 'textarea', 1, 5000, true ),
+	);
 
 
 	public function __construct() {

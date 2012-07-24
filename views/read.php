@@ -1,8 +1,8 @@
 <table class="table table-striped table-bordered table-condensed">
 	<tr>
 		<?php foreach( $headings as $column => $heading ) : ?>
-		<?php if( $heading[0] == '' ) continue; ?>
-		<th><?php echo $heading[0]; ?></th>
+		<?php if( $heading[0] == 0 ) continue; ?>
+		<th><?php echo $heading[1]; ?></th>
 		<?php endforeach; ?>
 		<th colspan="2"></th>
 	</tr>

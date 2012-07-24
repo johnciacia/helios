@@ -35,25 +35,26 @@ class Controller {
 		}
 	}
 
-	public function post_validate( $args ) {
-		$set = array();
-		foreach( $args as $arg ) {
-			if( isset( $_POST[$arg] ) && $_POST[$arg] != '' )
-				$set[] = $arg;
-		}
 
-		return count($set) == count($args);
-	}
 
 	public function validate( $items ) {
 
 		$i = array();
 		foreach( $items as $key => $items ) {
-			if( '' === $items[0] ) continue;
-			if( false === $items[4] ) continue;
+			if( 0 === $items[0] ) continue;
+			if( false === $items[5] ) continue;
+
+			if( 2 === $items[0] ) {
+				if( ! isset( $_POST[$key] ) ) return false;
+				else {
+					$i[$key] = $_POST[$key];
+					continue;
+				}
+			}
+
 			if( ! isset( $_POST[$key] ) ) return false;
-			if( strlen( $_POST[$key] ) < $items[2] ) return false;
-			if( strlen( $_POST[$key] ) > $items[3] ) return false;
+			if( strlen( $_POST[$key] ) < $items[3] ) return false;
+			if( strlen( $_POST[$key] ) > $items[4] ) return false;
 
 			$i[$key] = $_POST[$key];
 		}

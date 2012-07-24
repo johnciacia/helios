@@ -7,7 +7,7 @@ class IndexController extends Controller {
 		$this->loadView('footer.php');
 		$element = new Models\Element();
 		$e = $element->getItem( 1 );
-		pp( $e->standard() );
+		pp( $e->standard );
 	}
 
 

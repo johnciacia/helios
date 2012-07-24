@@ -19,17 +19,10 @@ class ObservationController extends Controller {
 			header("Location: ?p={$this->controller}");
 		}
 
-		require_once('models/ObservationModel.php');
-		$this->model = new ObservationModel();
-
-		require_once('models/StandardModel.php');
-		$this->standard_model = new Standard();
-
-		require_once('models/Element.php');
-		$this->element_model = new Element();
-
-		require_once('models/Indicator.php');
-		$this->indicator_model = new Indicator();
+		$this->model = new Models\Observation();
+		$this->standard_model = new Models\Standard();
+		$this->element_model = new Models\Element();
+		$this->indicator_model = new Models\Indicator();
 
 
 		$data = array( 'standards' => $standards = $this->standard_model->read() );

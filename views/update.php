@@ -1,18 +1,14 @@
 <form method="post" class="well form-horizontal">
 	<fieldset>
 		<?php foreach( $items as $id => $item ) : ?>
-		<?php if( $item[0] == '' ) continue; ?>
+		<?php if( $item[0] == 0 ) continue; ?>
 		<div class="control-group">
 			<label class="control-label" for="<?php echo $id; ?>">
-				<?php echo $item[0]; ?>
+				<?php echo $item[1]; ?>
 			</label>
 
 			<div class="controls">
-				<?php if( $item[1] == 'text') : ?>
-					<input type="text" name="<?php echo $id; ?>" class="span4" value=<?php echo $item['value']; ?> /><br />
-				<?php elseif( $item[1] == 'textarea') : ?>
-					<textarea name="<?php echo $id; ?>" class="span6"><?php echo $item['value']; ?></textarea><br />
-				<?php endif; ?>
+				<?php echo input_type( $item, $id ); ?><br />
 			</div>
 		</div>
 		<?php endforeach; ?>

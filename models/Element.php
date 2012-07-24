@@ -6,12 +6,12 @@ class Element {
 	use \CRUDModel;
 
 	public $items = array(
-		'id' => array( '', 'hidden' ),
-		'standard_id' => array( '', 'hidden' ),
-		'type' => array( '', 'hidden' ),
-		'number' => array( 'Number', 'text', 1, 10, true ),
-		'title' => array( 'Standard', 'textarea', 1, 5000, true ),
-		'indicators' => array( 'Indicators', 'textarea', 1, 5000, true )
+		'id' => array( 0, '', 'hidden' ),
+		'standard_id' => array( 2, 'Standard', 'dropdown', 'get_standards', '', true ),
+		'type' => array( 0, '', 'hidden' ),
+		'number' => array( 1, 'Number', 'text', 1, 10, true ),
+		'title' => array( 1, 'Element', 'textarea', 1, 5000, true ),
+		'indicators' => array( 1, 'Indicators', 'textarea', 1, 5000, true )
 	);
 
 	public $relations = array(

@@ -6,11 +6,11 @@ class Observation {
 	use \CRUDModel;
 	
 	public $items = array(
-			'id' => array( '', 'hidden' ),
-			'user_id' => array( '', 'hidden' ),
-			'teacher_id' => array( 'Teacher', 'text', 1, 11, true ),
-			'date' => array( 'Date', 'text', 1, 11, true ),
-			'indicators' => array( '', 'hidden')
+			'id' => array( 0, '', 'hidden' ),
+			'user_id' => array( 0, '', 'hidden' ),
+			'teacher_id' => array( 1, 'Teacher', 'text', 1, 11, true ),
+			'date' => array( 1, 'Date', 'text', 1, 11, true ),
+			'indicators' => array( 0, '', 'hidden')
 		);
 
 	public function __construct() {
