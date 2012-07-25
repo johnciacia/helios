@@ -25,11 +25,17 @@
 			<div class="nav-collapse">
 				<ul class="nav">
 					<li><a href="/">Home</a></li>
-					<li><a href="?p=teacher">Teachers</a></li>
-					<li><a href="?p=standard">Standards</a></li>
-					<li><a href="?p=element">Elements</a></li>
-					<li><a href="?p=indicator">Indicators</a></li>
-					<li><a href="?p=observation">Observations</a></li>
+					<?php if( isset( $_SESSION['active'] ) ) : ?>
+						<?php if( $_SESSION['level'] == 2 ) : ?>
+							<li><a href="?p=user">Users</a></li>
+							<li><a href="?p=standard">Standards</a></li>
+							<li><a href="?p=element">Elements</a></li>
+							<li><a href="?p=indicator">Indicators</a></li>
+						<?php endif; ?>
+						<li><a href="?p=teacher">Teachers</a></li>
+						<li><a href="?p=observation">Observations</a></li>
+						<li><a href="?p=logout">Logout</a></li>
+					<?php endif; ?>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>

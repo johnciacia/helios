@@ -43,4 +43,8 @@ class Teacher {
 		$this->global = false;
 	}
 
+	public function getTeacherById( $id ) {
+		$obj = $this->getItem( $id );
+		return $obj->first_name . ' ' . $obj->last_name;
+	}
 }

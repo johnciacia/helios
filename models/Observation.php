@@ -6,12 +6,38 @@ class Observation {
 	use \CRUDModel;
 	
 	public $items = array(
-			'id' => array( 0, '', 'hidden' ),
-			'user_id' => array( 0, '', 'hidden' ),
-			'teacher_id' => array( 1, 'Teacher', 'text', 1, 11, true ),
-			'date' => array( 1, 'Date', 'text', 1, 11, true ),
-			'indicators' => array( 0, '', 'hidden')
-		);
+		'id' => array( 
+			'display' => false
+		),
+		'user_id' => array( 
+			'display' => false
+		),
+		'element_id' => array(
+			'display' => false
+		),
+		'teacher_id' => array(
+			'display' => true,
+			'label' => 'Teacher',
+			'type' => 'dropdown',
+			'optional' => false,
+			'cb_value' => array( __CLASS__, 'cb_teacher_value' ),
+			'cb_display' => array( __CLASS__, 'cb_teacher_display' )
+		),
+		'date' => array( 
+			'display' => true,
+			'label' => 'Date',
+			'type' => 'text',
+			'min' => 1,
+			'max' => 255,
+			'optional' => false
+		),
+		'indicators' => array( 
+			'display' => false,
+			'label' => 'Indicators',
+			'type' => 'table',
+			'optional' => true,
+		)
+	);
 
 	public function __construct() {
 		$this->global = false;
@@ -36,6 +62,20 @@ class Observation {
 		$values = implode( ', ', $vals );
 
 		return mysql_query( "INSERT INTO `{$this->table}` ($columns) VALUES($values)" );
+	}
+
+	public static function cb_teacher_display( $id ) {
+		$obj = new Teacher();
+		return $obj->getTeacherById( $id );
+	}
+
+	public static function cb_teacher_value() {
+		$obj = new Teacher();
+		$values = $obj->read();
+		foreach( $values as &$value )
+			$value->title = $value->first_name . ' ' . $value->last_name;
+
+		return $values;
 	}
 }
 

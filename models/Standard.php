@@ -6,16 +6,51 @@ class Standard {
 	use \CRUDModel;
 
 	public $items = array(
-		'id' => array( 0, '', 'hidden' ),
-		'stdnumber' => array( 1, 'Number', 'text', 1, 10, true ),
-		'title' => array( 1, 'Standard', 'text', 1, 255, true ),
-		'desc' => array( 1, 'Description', 'textarea', 1, 5000, true ),
-		'moredetail' => array( 1, 'Details', 'textarea', 1, 5000, true )
+		'id' => array( 
+			'display' => false
+		),
+		'stdnumber' => array( 
+			'display' => true,
+			'label' => 'Number',
+			'type' => 'text',
+			'min' => 1,
+			'max' => 10,
+			'optional' => false
+		),
+		'title' => array( 
+			'display' => true,
+			'label' => 'Standard',
+			'type' => 'text',
+			'min' => 1,
+			'max' => 255,
+			'optional' => false
+		),
+		'desc' => array( 
+			'display' => true,
+			'label' => 'Description',
+			'type' => 'text',
+			'min' => 1,
+			'max' => 5000,
+			'optional' => false
+		),
+		'moredetail' => array( 
+			'display' => true,
+			'label' => 'Details',
+			'type' => 'text',
+			'min' => 1,
+			'max' => 5000,
+			'optional' => false
+		)
 	);
 
 
 	public function __construct() {
 		$this->table = 'standard';
 		$this->global = true;
+	}
+
+	public function getTitleById( $id ) {
+		$item = $this->getItem( $id );
+		return $item->title;
 	}
 }

@@ -8,8 +8,6 @@ class ObservationController extends Controller {
 		$this->controller = 'observation';
 
 		parent::__construct();
-
-
 	}
 
 	public function create() {
@@ -25,7 +23,9 @@ class ObservationController extends Controller {
 		$this->indicator_model = new Models\Indicator();
 
 
-		$data = array( 'standards' => $standards = $this->standard_model->read() );
+		$data = array( 
+			'standards' => $this->standard_model->read(),
+			'items' => $this->model->items );
 
 		$this->loadView( 'add_observation.php', $data );		
 	}

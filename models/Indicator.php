@@ -6,9 +6,25 @@ class Indicator {
 	use \CRUDModel;
 
 	public $items = array(
-		'id' => array( 0, '', 'hidden' ),
-		'element_id' => array( 1, 'Element', 'text', 1, 10, true ),
-		'desc' => array( 1, 'Description', 'textarea', 1, 5000, true ),
+		'id' => array( 
+			'display' => false
+		),
+		'element_id' => array(
+			'display' => true,
+			'label' => 'Element',
+			'type' => 'dropdown',
+			'optional' => false,
+			'cb_value' => array( __CLASS__, 'cb_value' ),
+			'cb_display' => array( __CLASS__, 'cb_display' )
+		),
+		'desc' => array( 
+			'display' => true,
+			'label' => 'Description',
+			'type' => 'text',
+			'min' => 1,
+			'max' => 5000,
+			'optional' => false
+		)
 	);
 
 
@@ -29,4 +45,14 @@ class Indicator {
 		return $x;
 	}
 
+	public static function cb_display( $id ) {
+		$element = new Element();
+		return $id;
+		// return $element->getTitleById( $id );
+	}
+
+	public static function cb_value() {
+		$element = new Element();
+		return $element->read();
+	}
 }

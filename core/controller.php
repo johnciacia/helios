@@ -3,12 +3,8 @@
 class Controller {
 
 	public function __construct() {
-		if( ! isset( $_REQUEST['q'] ) ) {
-			$this->read();
-			return;
-		}
-
-		switch( $_REQUEST['q'] ) {
+		$q = isset( $_REQUEST['q'] ) ? $_REQUEST['q'] : '';
+		switch( $q ) {
 			case 'create':
 				$this->create();
 				break;
@@ -44,16 +40,15 @@ class Controller {
 			if( false === $items['display'] ) continue;
 			if( true === $items['optional'] ) continue;
 
-			if( ! isset( $_POST[$key] ) ) return false;
-			if( strlen( $_POST[$key] ) > $items['max'] ) return false;
-			if( strlen( $_POST[$key] ) < $items['min'] ) return false;
-			// if( 2 === $items[0] ) {
-			// 	if( ! isset( $_POST[$key] ) ) return false;
-			// 	else {
-			// 		$i[$key] = $_POST[$key];
-			// 		continue;
-			// 	}
-			// }
+			if( ! isset( $_POST[$key] ) ) 
+				return false;
+
+			if( isset( $items['max'] ) && strlen( $_POST[$key] ) > $items['max'] ) 
+				return false;
+
+			if( isset( $items['min'] ) && strlen( $_POST[$key] ) < $items['min'] ) 
+				return false;
+
 
 			$i[$key] = $_POST[$key];
 		}

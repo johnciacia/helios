@@ -77,12 +77,18 @@ class Element {
 	}
 
 	public static function cb_display( $id ) {
-		return $id;
+		$standard = new Standard();
+		return $standard->getTitleById( $id );
 	}
 
 	public static function cb_value() {
 		$standard = new Standard();
 		return $standard->read();
+	}
+
+	public function getTitleById( $id ) {
+		$item = $this->getItem( $id );
+		return $item->title;
 	}
 
 }

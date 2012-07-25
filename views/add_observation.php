@@ -2,12 +2,16 @@
 	<fieldset>
 		<div class="control-group">
 			<label class="control-label" for="teacher_id">Teacher</label>
-			<div class="controls"><input type="text" name="teacher_id" class="span4" /><br /></div>
+			<div class="controls">
+				<?php echo input_type( $items['teacher_id'], 'teacher_id' ); ?>
+			</div>
 		</div>
 
 		<div class="control-group">
 			<label class="control-label" for="date">Date</label>
-			<div class="controls"><input type="text" name="date" class="span4" /><br /></div>
+			<div class="controls">
+				<?php echo input_type( $items['date'], 'date' ); ?>
+			</div>
 		</div>
 	<fieldset>
 
